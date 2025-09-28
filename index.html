@@ -626,154 +626,6 @@
             transform: translateY(-2px);
         }
         
-        /* Gemini Modal Styles */
-        .gemini-cta-btn {
-            background: linear-gradient(135deg, #a855f7, #6366f1);
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 1.5rem;
-            display: inline-block;
-        }
-
-        .gemini-cta-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
-        }
-
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(5px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 2rem;
-            border-radius: 1rem;
-            width: 90%;
-            max-width: 600px;
-            box-shadow: var(--shadow-lg);
-            position: relative;
-            transform: scale(0.95);
-            transition: transform 0.3s ease;
-        }
-
-        .modal-overlay.active .modal-content {
-            transform: scale(1);
-        }
-
-        .modal-close-btn {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--text-secondary);
-        }
-
-        .modal-content h3 {
-            margin-bottom: 1.5rem;
-            color: var(--text-primary);
-            text-align: center;
-        }
-
-        .chat-window {
-            height: 300px;
-            overflow-y: auto;
-            border: 1px solid var(--border-color);
-            border-radius: 0.5rem;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .chat-message {
-            padding: 0.75rem 1rem;
-            border-radius: 0.75rem;
-            max-width: 80%;
-            line-height: 1.5;
-        }
-
-        .user-message {
-            background: var(--primary-color);
-            color: white;
-            align-self: flex-end;
-            border-bottom-right-radius: 0.25rem;
-        }
-
-        .bot-message {
-            background: var(--card-bg);
-            color: var(--text-primary);
-            align-self: flex-start;
-            border-bottom-left-radius: 0.25rem;
-        }
-
-        .chat-input-area {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        #chat-input {
-            flex-grow: 1;
-            padding: 0.75rem;
-            border: 1px solid var(--border-color);
-            border-radius: 0.5rem;
-            font-size: 1rem;
-        }
-
-        #chat-input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-        }
-
-        #send-btn {
-            background: var(--primary-color);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 0.5rem;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        #send-btn:hover {
-            background: #1a4480;
-        }
-
-        #loading-indicator {
-            text-align: center;
-            padding: 1rem;
-            font-style: italic;
-            color: var(--text-secondary);
-        }
-        
         /* Footer */
         footer {
             background: var(--text-primary);
@@ -850,15 +702,6 @@
                 height: 32px;
                 margin-left: 0;
                 margin-top: 1rem;
-            }
-
-            .modal-content {
-                width: 95%;
-                padding: 1.5rem;
-            }
-
-            .chat-window {
-                height: 250px;
             }
         }
         
@@ -1036,7 +879,6 @@
                             <span class="role-tag">SPC</span>
                             <span class="role-tag">Industry 4.0</span>
                         </div>
-                        <button class="gemini-cta-btn">✨ Ask me about this role</button>
                     </div>
                     
                     <!-- Internships Section -->
@@ -1230,25 +1072,6 @@
         </section>
     </main>
 
-    <!-- Gemini Chat Modal -->
-    <div id="gemini-modal" class="modal-overlay" style="display: none;">
-        <div class="modal-content">
-            <button class="modal-close-btn">&times;</button>
-            <h3>✨ Ask about my role at Micron</h3>
-            <div id="chat-window" class="chat-window">
-                <!-- Initial message from 'Kuntesh' -->
-                <div class="chat-message bot-message">
-                    <p>Hello! I can answer your questions about my role as an Assembly Equipment & Process Engineer. What would you like to know?</p>
-                </div>
-            </div>
-            <div id="loading-indicator" style="display: none;">Thinking...</div>
-            <div class="chat-input-area">
-                <input type="text" id="chat-input" placeholder="e.g., What is your main responsibility?">
-                <button id="send-btn">Send</button>
-            </div>
-        </div>
-    </div>
-
     <footer>
         <div class="container">
             <p>&copy; 2025 Kuntesh. All rights reserved. Assembly Equipment & Process Engineer at Micron Technology.</p>
@@ -1325,133 +1148,6 @@
                     }, 3000);
                 });
             }
-
-            // --- Gemini API Feature Logic ---
-            const geminiModal = document.getElementById('gemini-modal');
-            const openModalBtn = document.querySelector('.gemini-cta-btn');
-            const closeModalBtn = document.querySelector('.modal-close-btn');
-            const chatWindow = document.getElementById('chat-window');
-            const chatInput = document.getElementById('chat-input');
-            const sendBtn = document.getElementById('send-btn');
-            const loadingIndicator = document.getElementById('loading-indicator');
-
-            const openModal = () => {
-                geminiModal.style.display = 'flex';
-                setTimeout(() => geminiModal.classList.add('active'), 10);
-                chatInput.focus();
-            };
-
-            const closeModal = () => {
-                geminiModal.classList.remove('active');
-                setTimeout(() => geminiModal.style.display = 'none', 300);
-            };
-
-            if (openModalBtn) openModalBtn.addEventListener('click', openModal);
-            if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
-            geminiModal.addEventListener('click', (e) => {
-                if (e.target === geminiModal) {
-                    closeModal();
-                }
-            });
-
-            // Gemini API Call with exponential backoff
-            const callGeminiAPI = async (userQuery, retries = 3, delay = 1000) => {
-                loadingIndicator.style.display = 'block';
-                sendBtn.disabled = true;
-                chatInput.disabled = true;
-
-                const apiKey = ""; // This will be provided by the runtime environment
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-
-                const roleContext = `
-                    Role: Assembly Equipment & Process Engineer at Micron Technology, Inc. (September 2025 - Present).
-                    About Micron: A global leader in memory and storage solutions (DRAM, NAND, NOR).
-                    My Responsibilities: Optimizing semiconductor assembly processes, maintaining manufacturing equipment, ensuring high-yield production. This includes process troubleshooting, equipment optimization, yield enhancement, and cross-functional collaboration.
-                    Key Focus Areas: Assembly process optimization, equipment performance monitoring, yield analysis, statistical process control (SPC), failure analysis, and Industry 4.0 manufacturing principles.
-                `;
-
-                const systemPrompt = "You are a helpful assistant role-playing as Kuntesh, a Mechanical Engineer. Your goal is to answer questions from a recruiter about your current role at Micron. Your answers must be concise, professional, and based *only* on the provided context. Do not invent any information. If a question cannot be answered from the context, politely state that you'd be happy to discuss it in more detail during an interview.";
-
-                const payload = {
-                    contents: [{
-                        parts: [{ text: `CONTEXT:\n${roleContext}\n\nQUESTION:\n${userQuery}` }]
-                    }],
-                    systemInstruction: {
-                        parts: [{ text: systemPrompt }]
-                    },
-                };
-
-                try {
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (!response.ok) {
-                        if (response.status === 429 || response.status >= 500) {
-                            throw new Error(`HTTP error! status: ${response.status}`);
-                        }
-                        const errorData = await response.json();
-                        console.error('API Error:', errorData);
-                        return "I'm sorry, but I encountered an issue and can't respond right now. Please try again later.";
-                    }
-
-                    const result = await response.json();
-                    const candidate = result.candidates?.[0];
-                    if (candidate && candidate.content?.parts?.[0]?.text) {
-                        return candidate.content.parts[0].text;
-                    } else {
-                         // Check for safety ratings if content is missing
-                        if (candidate?.finishReason === 'SAFETY') {
-                            console.warn('Response blocked for safety reasons:', candidate.safetyRatings);
-                            return "I am unable to answer that question. Let's stick to topics related to my professional experience.";
-                        }
-                        return "I'm sorry, I couldn't generate a response. Please rephrase your question.";
-                    }
-                } catch (error) {
-                    console.error('Fetch error:', error.message);
-                    if (retries > 0) {
-                        console.log(`Retrying... attempts left: ${retries}`);
-                        await new Promise(res => setTimeout(res, delay));
-                        return callGeminiAPI(userQuery, retries - 1, delay * 2);
-                    }
-                    return "There seems to be a connection issue. Please check your network and try again.";
-                } finally {
-                    loadingIndicator.style.display = 'none';
-                    sendBtn.disabled = false;
-                    chatInput.disabled = false;
-                    chatInput.focus();
-                }
-            };
-
-            const handleSendMessage = async () => {
-                const messageText = chatInput.value.trim();
-                if (!messageText) return;
-
-                const userMessageDiv = document.createElement('div');
-                userMessageDiv.className = 'chat-message user-message';
-                userMessageDiv.innerHTML = `<p>${messageText}</p>`;
-                chatWindow.appendChild(userMessageDiv);
-
-                chatInput.value = '';
-                chatWindow.scrollTop = chatWindow.scrollHeight;
-
-                const botResponseText = await callGeminiAPI(messageText);
-                
-                const botMessageDiv = document.createElement('div');
-                botMessageDiv.className = 'chat-message bot-message';
-                botMessageDiv.innerHTML = `<p>${botResponseText}</p>`; // Using innerHTML to render potential markdown
-                chatWindow.appendChild(botMessageDiv);
-                chatWindow.scrollTop = chatWindow.scrollHeight;
-            };
-
-            sendBtn.addEventListener('click', handleSendMessage);
-            chatInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    handleSendMessage();
-                }
-            });
         });
         
         // Performance optimization: Lazy load non-critical resources
@@ -1464,6 +1160,4 @@
     </script>
 </body>
 </html>
-
-
 
