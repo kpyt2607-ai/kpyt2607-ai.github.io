@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuntesh - Mechanical Engineer & Semiconductor Professional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles - Inspired by Apple/Samsung: Clean, minimal, with smooth transitions */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+            transition: background-color 1s ease-in-out;
+            overflow-x: hidden;
+        }
+
+        /* Navigation Bar */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: background 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #007aff;
+            transition: color 0.3s ease;
+        }
+
+        .logo:hover {
+            color: #005bb5;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #007aff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #007aff;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #f0f4ff, #e0eaff);
+            position: relative;
+            overflow: hidden;
+            max-width: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0,122,255,0.1) 0%, transparent 70%);
+            animation: pulse 10s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.3; }
+            100% { transform: scale(1); opacity: 0.5; }
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease-out;
+        }
+
+        .hero h1.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease-out 0.3s;
+        }
+
+        .hero p.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cta-button {
+            padding: 1rem 2rem;
+            background: #007aff;
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0,122,255,0.3);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 8rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 1s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            transition: font-size 0.5s ease, transform 0.5s ease;
+        }
+
+        h2.grow {
+            font-size: 3.5rem;
+            transform: scale(1.1);
+        }
+
+        h2.shrink {
+            font-size: 2.5rem;
+            transform: scale(0.9);
+        }
+
+        /* Background Color Transitions */
+        body.section-about {
+            background-color: #f8f9fa;
+        }
+
+        body.section-experience {
+            background-color: #e8f4fd;
+        }
+
+        body.section-skills {
+            background-color: #f0fdfa;
+        }
+
+        body.section-education {
+            background-color: #fdfaf0;
+        }
+
+        body.section-certifications {
+            background-color: #f0fdf4;
+        }
+
+        body.section-contact {
+            background-color: #faf0fd;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 4rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #007aff;
+        }
+
+        /* Experience Section */
+        .experience-timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .experience-timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: #007aff;
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 1s ease-out;
+        }
+
+        #experience.visible .experience-timeline::before {
+            transform: scaleY(1);
+        }
+
+        .experience-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .experience-item.left {
+            justify-content: flex-start;
+        }
+
+        .experience-item.right {
+            justify-content: flex-end;
+        }
+
+        .experience-card {
+            width: 45%;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+
+        .experience-item.right .experience-card {
+            transform: translateX(50px);
+        }
+
+        .experience-item.visible .experience-card {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .experience-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-card .company {
+            font-size: 1.2rem;
+            color: #007aff;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-card .date {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .experience-card p {
+            margin-bottom: 1rem;
+        }
+
+        .skills-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            padding: 0.5rem 1rem;
+            background: #e0eaff;
+            border-radius: 50px;
+            font-size: 0.9rem;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+
+        .skills-category {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .skills-category:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        .skills-category h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .skills-list {
+            list-style: none;
+        }
+
+        .skills-list li {
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .skills-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #007aff;
+        }
+
+        /* Education Section */
+        .education-item {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.8s ease;
+        }
+
+        .education-item.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .education-item h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-item .institution {
+            font-size: 1.2rem;
+            color: #007aff;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-item .details {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        /* Certifications Section */
+        .certification-item {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.8s ease;
+        }
+
+        .certification-item.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .certification-item h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .certification-item .institution {
+            font-size: 1.2rem;
+            color: #007aff;
+            margin-bottom: 0.5rem;
+        }
+
+        .certification-item .details {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .info-item:hover {
+            transform: translateX(10px);
+        }
+
+        .info-icon {
+            font-size: 1.5rem;
+            color: #007aff;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-input {
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border 0.3s ease;
+        }
+
+        .form-input:focus {
+            border-color: #007aff;
+            outline: none;
+        }
+
+        .form-textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .submit-button {
+            padding: 1rem;
+            background: #007aff;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background: #005bb5;
+            transform: scale(1.02);
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            background: #f8f9fa;
+            color: #666;
+            font-size: 0.9rem;
+            transition: background 0.5s ease;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: white;
+                padding: 1rem;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .experience-timeline::before {
+                left: 20px;
+            }
+
+            .experience-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .experience-card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Kuntesh</div>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#experience">Experience</a>
+                <a href="#skills">Skills</a>
+                <a href="#education">Education</a>
+                <a href="#certifications">Certifications</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="menu-toggle">☰</div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Hi, I'm Kuntesh</h1>
+        <p>Mechanical Engineer & Semiconductor Professional passionate about innovation, 
+        problem-solving, and cutting-edge technology in manufacturing and design.</p>
+        <p>Assembly Equipment & Process Engineer at MICRON</p>
+        <a href="#contact" class="cta-button">Get in Touch</a>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>About Me</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>Mechanical Engineering graduate with a strong foundation in core engineering concepts and 
+                a natural inclination towards problem-solving and innovation. Passionate about thermals, 
+                fluid mechanics, and the practical application of mechanical principles in real-world scenarios.</p>
+
+                <p>Gained exposure to both design and production environments through hands-on internships, 
+                building a solid understanding of manufacturing processes and industrial workflows. 
+                Recently joined Micron Technology as an Assembly Equipment & Process Engineer, excited to 
+                contribute to cutting-edge semiconductor manufacturing.</p>
+
+                <p>Eager to explore the dynamic world of semiconductors, contribute to high-impact 
+                projects, and grow in a fast-paced, technology-driven industry while leveraging my 
+                mechanical engineering background in this exciting new role.</p>
+            </div>
+            <div class="about-stats">
+                <div class="stat-item">
+                    <div class="stat-value">2025</div>
+                    <div>Graduate</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">3</div>
+                    <div>Positions</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">1st</div>
+                    <div>Class Distinction</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">8+</div>
+                    <div>Months Experience</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <h2>Professional Experience</h2>
+        <div class="experience-timeline">
+            <div class="experience-item left">
+                <div class="experience-card">
+                    <h3>Assembly Equipment & Process Engineer</h3>
+                    <div class="company">Micron Technology, Inc.</div>
+                    <div class="date">September 2025 - Present</div>
+                    <p>About Micron Technology: Micron Technology is a global leader in innovative memory and storage solutions, transforming 
+                    how the world uses information to enrich life. As the only U.S.-based memory manufacturer, 
+                    Micron delivers cutting-edge DRAM, NAND, and NOR memory products that power artificial 
+                    intelligence, data centers, mobile devices, and automotive applications worldwide.</p>
+                    <p>Current Role: As an Assembly Equipment & Process Engineer, I focus on optimizing 
+                    semiconductor assembly processes, maintaining critical manufacturing equipment, and ensuring 
+                    high-yield production of memory devices. My responsibilities include process troubleshooting, 
+                    equipment optimization, yield enhancement, and cross-functional collaboration to drive 
+                    continuous improvement in manufacturing operations.</p>
+                    <p>Key Focus Areas: Assembly process optimization, equipment performance 
+                    monitoring, yield analysis, statistical process control (SPC), failure analysis, and 
+                    implementation of industry 4.0 manufacturing principles.</p>
+                    <div class="skills-tags">
+                        <span class="skill-tag">Semiconductor Manufacturing</span>
+                        <span class="skill-tag">Process Optimization</span>
+                        <span class="skill-tag">Equipment Engineering</span>
+                        <span class="skill-tag">Yield Enhancement</span>
+                        <span class="skill-tag">SPC</span>
+                        <span class="skill-tag">Industry 4.0</span>
+                    </div>
+                </div>
+            </div>
+            <h3>Previous Internships</h3>
+            <div class="experience-item right">
+                <div class="experience-card">
+                    <h3>Production Department Intern</h3>
+                    <div class="company">Elecon Engineering Company</div>
+                    <div class="date">December 2024 - February 2025</div>
+                    <p>Carried out detailed OEE (Overall Equipment Effectiveness) analysis of two grinding machines, 
+                    identifying downtime and performance trends. Studied heat treatment distortion in shafts, 
+                    analyzing dimensional variations before and after processing. Observed key production processes 
+                    including machining, heat treatment, inspection, and material handling.</p>
+                    <div class="skills-tags">
+                        <span class="skill-tag">OEE Analysis</span>
+                        <span class="skill-tag">Heat Treatment</span>
+                        <span class="skill-tag">Process Optimization</span>
+                        <span class="skill-tag">Quality Control</span>
+                    </div>
+                </div>
+            </div>
+            <div class="experience-item left">
+                <div class="experience-card">
+                    <h3>Design Department Intern</h3>
+                    <div class="company">Elecon Engineering Company</div>
+                    <div class="date">May 2024 - June 2024</div>
+                    <p>Explored the overall design process of mechanical systems, including gearboxes and transmission 
+                    components. Understood basic manufacturing processes such as casting, forging, and CNC machining 
+                    through plant visits. Studied plant safety protocols, layout planning, and standard practices 
+                    followed in industrial setups.</p>
+                    <div class="skills-tags">
+                        <span class="skill-tag">Mechanical Design</span>
+                        <span class="skill-tag">Manufacturing</span>
+                        <span class="skill-tag">CAD Design</span>
+                        <span class="skill-tag">Industrial Safety</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2>Skills & Expertise</h2>
+        <p style="text-align: center; margin-bottom: 4rem;">A comprehensive skill set spanning mechanical engineering fundamentals, 
+        semiconductor manufacturing, and modern design tools.</p>
+        <div class="skills-grid">
+            <div class="skills-category">
+                <h3>Technical Skills</h3>
+                <ul class="skills-list">
+                    <li>Thermodynamics & Fluid Mechanics</li>
+                    <li>Manufacturing Processes & Mechanical Design</li>
+                    <li>Semiconductor Assembly Processes</li>
+                    <li>OEE Analysis & Process Optimization</li>
+                    <li>Heat Treatment & Distortion Analysis</li>
+                    <li>Statistical Process Control (SPC)</li>
+                    <li>Six Sigma Principles</li>
+                    <li>Equipment Troubleshooting</li>
+                </ul>
+            </div>
+            <div class="skills-category">
+                <h3>Software & Tools</h3>
+                <ul class="skills-list">
+                    <li>SolidWorks (3D Modeling & Design)</li>
+                    <li>AutoCAD (Technical Drafting)</li>
+                    <li>MS Excel (Data Analysis)</li>
+                    <li>Statistical Software (JMP, Minitab)</li>
+                    <li>CAD Drawing & Technical Interpretation</li>
+                    <li>Engineering Documentation</li>
+                    <li>Quality Control Systems</li>
+                    <li>Manufacturing Execution Systems</li>
+                </ul>
+            </div>
+            <div class="skills-category">
+                <h3>Core Competencies</h3>
+                <ul class="skills-list">
+                    <li>Strong Problem-Solving Abilities</li>
+                    <li>Data Interpretation & Analysis</li>
+                    <li>Cross-functional Collaboration</li>
+                    <li>Quick Learning & Adaptability</li>
+                    <li>Time Management</li>
+                    <li>Process Improvement</li>
+                    <li>Technical Communication</li>
+                    <li>Project Management</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education">
+        <h2>Education</h2>
+        <div class="education-item">
+            <h3>Bachelor of Technology (B.Tech) - Mechanical Engineering</h3>
+            <div class="institution">Dharmsinh Desai University</div>
+            <div class="details">First Class with Distinction | 2021 - 2025</div>
+        </div>
+        <div class="education-item">
+            <h3>Higher Secondary Education (12th Grade)</h3>
+            <div class="institution">Anandlalaya Education Society</div>
+            <div class="details">86% | 2020 - 2021</div>
+        </div>
+        <div class="education-item">
+            <h3>Secondary Education (10th Grade)</h3>
+            <div class="institution">Anandlalaya Education Society</div>
+            <div class="details">90% | 2018 - 2019</div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications">
+        <h2>Certifications</h2>
+        <div class="certification-item">
+            <h3>Six Sigma Black Belt</h3>
+            <div class="institution">Concept Business Excellence Pvt Ltd</div>
+        </div>
+        <div class="certification-item">
+            <h3>Six Sigma Green Belt</h3>
+            <div class="institution">Concept Business Excellence Pvt Ltd</div>
+        </div>
+        <div class="certification-item">
+            <h3>Basics of Automation</h3>
+            <div class="institution">Bosch Rexroth</div>
+            <p>Includes separate certificates in Pneumatics, Hydraulics, PLC, and Sensorics.</p>
+        </div>
+        <div class="certification-item">
+            <h3>SAP Based Course</h3>
+            <div class="institution">Edunet Foundation</div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Get In Touch</h2>
+        <p style="text-align: center; margin-bottom: 4rem;">Interested in collaborating or have a project in mind? Let's connect and explore opportunities together.</p>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="info-item">
+                    <span class="info-icon">📞</span>
+                    <div>
+                        <div>Phone</div>
+                        <div>+91 7434821615</div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">✉️</span>
+                    <div>
+                        <div>Email</div>
+                        <div>kuntesh2607@gmail.com</div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">📍</span>
+                    <div>
+                        <div>Location</div>
+                        <div>Nadiad 387001, Gujarat</div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">💼</span>
+                    <div>
+                        <div>LinkedIn</div>
+                        <div><a href="#">Connect with me</a></div>
+                    </div>
+                </div>
+            </div>
+            <form class="contact-form">
+                <input type="text" class="form-input" placeholder="Full Name">
+                <input type="email" class="form-input" placeholder="Email Address">
+                <input type="text" class="form-input" placeholder="Subject">
+                <textarea class="form-input form-textarea" placeholder="Message"></textarea>
+                <button type="submit" class="submit-button">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        © 2025 Kuntesh. All rights reserved. Assembly Equipment & Process Engineer at Micron Technology.
+    </footer>
+
+    <!-- JavaScript for Animations -->
+    <script>
+        // Menu Toggle for Mobile
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Scroll-based Nav Change
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                document.querySelector('nav').classList.add('scrolled');
+            } else {
+                document.querySelector('nav').classList.remove('scrolled');
+            }
+        });
+
+        // Intersection Observer for Section Animations
+        const sections = document.querySelectorAll('section');
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px'
+        };
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    document.body.classList.add(`section-${entry.target.id}`);
+                    
+                    // Heading grow/shrink animation
+                    const h2 = entry.target.querySelector('h2');
+                    if (h2) {
+                        h2.classList.add('grow');
+                        setTimeout(() => {
+                            h2.classList.remove('grow');
+                            h2.classList.add('shrink');
+                            setTimeout(() => {
+                                h2.classList.remove('shrink');
+                            }, 500);
+                        }, 500);
+                    }
+
+                    // Specific for experience items
+                    if (entry.target.id === 'experience') {
+                        const items = entry.target.querySelectorAll('.experience-item');
+                        items.forEach((item, index) => {
+                            setTimeout(() => {
+                                item.classList.add('visible');
+                            }, index * 300);
+                        });
+                    }
+
+                    // Specific for education items
+                    if (entry.target.id === 'education' || entry.target.id === 'certifications') {
+                        const items = entry.target.querySelectorAll('.education-item, .certification-item');
+                        items.forEach((item, index) => {
+                            setTimeout(() => {
+                                item.classList.add('visible');
+                            }, index * 300);
+                        });
+                    }
+                } else {
+                    document.body.classList.remove(`section-${entry.target.id}`);
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            sectionObserver.observe(section);
+        });
+
+        // Hero Animation on Load
+        window.addEventListener('load', () => {
+            document.querySelector('.hero h1').classList.add('visible');
+            document.querySelector('.hero p').classList.add('visible');
+        });
+    </script>
+</body>
+</html>
